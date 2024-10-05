@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
-@Override
+   @Override
     public List<UserDto> getAllUser() {
         this.userRepository.findAll();
         return null;

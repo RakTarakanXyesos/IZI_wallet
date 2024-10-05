@@ -12,4 +12,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleUserNotFoundExeption(UserNotFoundException e) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
+
+    @ExceptionHandler(WalletNotFoundExeption.class)
+    public ResponseEntity<String> handleWalletNotFoundExeption(WalletNotFoundExeption e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
 }
