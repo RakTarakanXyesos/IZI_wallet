@@ -32,4 +32,19 @@ public class TransactionsController {
         String response = this.transactionsService.withdrawAmount(accountNumber, amount);
         return ResponseEntity.ok(response);
     }
+
+    @PostMapping("/transfer")
+    public ResponseEntity<String> transfer(@RequestParam String fromAccountNumber,
+                                           @RequestParam String toAccountNumber,
+                                           @RequestParam BigDecimal amount) {
+        try {
+            transactionsService.transferAmount(fromAccountNumber, toAccountNumber, amount);
+            return ResponseEntity.status(HttpStatus.OK).body("Transfer successful");
+        } catch (AccountNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (InsufficientFundsException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
 }

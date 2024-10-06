@@ -24,8 +24,8 @@ public class Wallet {
     private String currency;
     private LocalDateTime createdAt;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private User user;
 
     @PrePersist

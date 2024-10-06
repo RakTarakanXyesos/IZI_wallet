@@ -16,6 +16,24 @@ public class Transaction {
     private BigDecimal amount;
     @Column(name = "transaction_type")
     private String transactionType; // (enum)
+    private String fromAccountNumber; // Номер рахунку відправника
+    private String toAccountNumber;
+
+    public String getFromAccountNumber() {
+        return fromAccountNumber;
+    }
+
+    public void setFromAccountNumber(String fromAccountNumber) {
+        this.fromAccountNumber = fromAccountNumber;
+    }
+
+    public String getToAccountNumber() {
+        return toAccountNumber;
+    }
+
+    public void setToAccountNumber(String toAccountNumber) {
+        this.toAccountNumber = toAccountNumber;
+    }
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -28,6 +46,7 @@ public class Transaction {
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
     }
+
 
     public Wallet getWallet() {
         return wallet;
@@ -71,5 +90,8 @@ public class Transaction {
 
 
     public void setAccountNumber(String accountNumber) {
+    }
+
+    public void setWalletId(Long id) {
     }
 }
