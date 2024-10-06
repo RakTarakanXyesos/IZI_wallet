@@ -2,6 +2,9 @@ package com.example.AtomWallet.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+import java.util.Set;
+
 @Entity
 @Table(name = "user")
 public class User {
@@ -16,13 +19,20 @@ public class User {
     @Column(unique = true, name = "email")
     private String email;
 
-    @Column(unique = true, name = "contact_number")
-    private String conatact_number;
-
     @Column(name = "addres")
     private String address;
 
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Wallet> wallets;
+
+    public Set<Wallet> getWallets() {
+        return wallets;
+    }
+
+    public void setWallets(Set<Wallet> wallets) {
+        this.wallets = wallets;
+    }
 
     public Long getId() {
         return id;
@@ -46,14 +56,6 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getConatact_number() {
-        return conatact_number;
-    }
-
-    public void setConatact_number(String conatact_number) {
-        this.conatact_number = conatact_number;
     }
 
     public String getAddress() {

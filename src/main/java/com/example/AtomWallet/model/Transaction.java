@@ -2,6 +2,7 @@ package com.example.AtomWallet.model;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -12,21 +13,28 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "wallet_id")
-    private Long walletId;
-
-    private Double amount;
+    private BigDecimal amount;
     @Column(name = "transaction_type")
     private String transactionType; // (enum)
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    // Конструктори, геттери і сеттери
+    @ManyToOne
+    @JoinColumn(name = "wallet_id", nullable = false)
+    private Wallet wallet;
 
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
+    }
+
+    public Wallet getWallet() {
+        return wallet;
+    }
+
+    public void setWallet(Wallet wallet) {
+        this.wallet = wallet;
     }
 
     public Long getId() {
@@ -37,19 +45,11 @@ public class Transaction {
         this.id = id;
     }
 
-    public Long getWalletId() {
-        return walletId;
-    }
-
-    public void setWalletId(Long walletId) {
-        this.walletId = walletId;
-    }
-
-    public Double getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(Double amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 
@@ -67,5 +67,9 @@ public class Transaction {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+
+    public void setAccountNumber(String accountNumber) {
     }
 }

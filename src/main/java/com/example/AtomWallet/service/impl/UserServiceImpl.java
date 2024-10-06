@@ -27,7 +27,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getUserById(Long id) {
-        // Використовуємо Optional для отримання користувача
         User user = this.userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("User with id " + id + " not found"));
 
@@ -49,7 +48,6 @@ public class UserServiceImpl implements UserService {
 
     user.setName(userDto.getName());
     user.setEmail(userDto.getEmail());
-    user.setConatact_number(userDto.getConatact_number());
     user.setAddress(userDto.getAddress());
     this.userRepository.save(user);
     return new UserDto(user);
@@ -57,10 +55,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void delete(Long id) {
-    User user = this.userRepository.findById(id)
-            .orElseThrow(() -> new UserNotFoundException("User with id " + id + " not found"));
-    this.userRepository.delete(user);
+        User user = this.userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("User with id " + id + " not found"));
+
+        this.userRepository.delete(user);
     }
+
 
     private User dtoToEntity(UserDto userDto) {
         User user = new User();

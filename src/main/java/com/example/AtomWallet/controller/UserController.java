@@ -4,6 +4,7 @@ import com.example.AtomWallet.dto.UserDto;
 import com.example.AtomWallet.model.User;
 import com.example.AtomWallet.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,8 +37,8 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         this.userService.delete(id);
+        return ResponseEntity.noContent().build();
     }
-
 }
